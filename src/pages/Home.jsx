@@ -48,7 +48,7 @@ const Home = () => {
     {
       id: 4,
       name: "Scuba Diving + water activities - 350 per person",
-      price: 350,
+      price: 1500,
       hasQuantity: true,
       quantityKey: "numberOfPeople",
       link: "scubadiving",
@@ -121,12 +121,12 @@ const Home = () => {
         backgroundSize: "cover", // Ensure the image covers the full screen
         backgroundPosition: "center", // Center the image
       }}
-      className="min-h-screen bg-blue-50 background"
+      className="min-h-screen bg-blue-50"
     >
       <Header />
       <TotalAmountBox total={total} />
-      <div className="max-w-4xl mx-auto p-6 pt-10">
-        <h1 className="text-3xl font-bold text-center text-white mb-6">
+      <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
+        <h1 className="text-2xl md:text-3xl font-bold text-center text-white mb-6">
           Plan Your Dream Trip to Goa!
         </h1>
         <div className="bg-white rounded-lg shadow-md p-6">
@@ -134,38 +134,43 @@ const Home = () => {
             {packages.map((pkg) => (
               <div
                 key={pkg.id}
-                className="flex items-center justify-between mb-4 p-4 bg-teal-100 rounded-lg shadow-sm"
+                className="flex flex-col md:flex-row items-center justify-between mb-6 p-4 bg-teal-100 rounded-lg shadow-sm"
               >
-                <div className="flex gap-5 items-center">
-                  <h2 className="text-lg font-medium text-teal-700">
-                    {pkg.name}
-                  </h2>
+                <div className=" flex gap-2">
+                  <div className=" mb-4 md:mb-0">
+                    <h2 className="text-lg font-medium text-teal-700">
+                      {pkg.name}
+                    </h2>
+                  </div>
                   {pkg.hasQuantity && (
-                    <select
-                      className="mt-2 border border-gray-300 rounded px-2 py-1"
-                      value={quantities[pkg.id]?.[pkg.quantityKey] || 1}
-                      onChange={(e) =>
-                        handleQuantityChange(pkg, e.target.value)
-                      }
-                    >
-                      {[...Array(10).keys()].map((num) => (
-                        <option key={num + 1} value={num + 1}>
-                          {num + 1}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
+                      <select
+                        className="border border-gray-300 rounded px-1 md:px-4 py-2 text-teal-700 font-medium w-[45px] md:w-auto"
+                        value={quantities[pkg.id]?.[pkg.quantityKey] || 1}
+                        onChange={(e) =>
+                          handleQuantityChange(pkg, e.target.value)
+                        }
+                      >
+                        {[...Array(10).keys()].map((num) => (
+                          <option key={num + 1} value={num + 1}>
+                            {num + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   )}
                 </div>
-                <div className="flex items-center">
+
+                <div className="flex items-center gap-4">
                   <button
                     type="button"
-                    className="text-teal-500 underline mr-4"
+                    className="bg-teal-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-teal-600 transition"
                     onClick={() => handleViewDetails(pkg?.link)}
                   >
-                    View Details
+                    Details
                   </button>
-                  <span className="text-teal-800 font-bold mr-4">
-                    ₹{pkg.price}
+                  <span className="text-teal-800 font-bold">
+                    ₹{pkg.price} per person
                   </span>
                   <input
                     type="checkbox"
@@ -179,7 +184,7 @@ const Home = () => {
           </form>
           <div className="text-center mt-8">
             <button
-              className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
+              className="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-teal-700 transition duration-300 w-full md:w-auto"
               onClick={handleCheckout}
             >
               Confirm Booking
