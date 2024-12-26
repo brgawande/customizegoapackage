@@ -50,6 +50,51 @@ const CheckoutPage = () => {
     setIsFormVisible(!isFormVisible);
   };
 
+  const handleFormSubmit = async () => {
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+
+    // Create the payload with the form data and selected package details
+    const bookingData = {
+      name,
+      phone,
+      totalAmount: total,
+      selectedPackages: selectedPackages.map((pkgId) => {
+        const pkg = packages.find((p) => p.id === pkgId);
+        return {
+          id: pkg.id,
+          price: pkg.price,
+          quantity: quantities[pkg.id]?.numberOfPeople || 1,
+        };
+      }),
+    };
+
+    // Send the data to the backend to create the booking
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/booking/create-booking",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookingData),
+        }
+      );
+
+      const result = await response.json();
+      if (response.status === 201) {
+        alert("Booking Confirmed!");
+        // Redirect to a confirmation page or thank you page
+      } else {
+        alert("Error creating booking: " + result.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while confirming the booking.");
+    }
+  };
+
   return (
     <div
       style={{
@@ -142,7 +187,7 @@ const CheckoutPage = () => {
             <div className="text-center mt-8">
               <button
                 className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
-                onClick={() => alert("Booking Confirmed!")}
+                onClick={handleFormSubmit}
               >
                 Confirm Booking
               </button>
