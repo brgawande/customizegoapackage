@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
-import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,6 +8,7 @@ import {
   setSelectedPackages,
   setQuantities,
 } from "../store/packageSlice";
+import ocean from "../assets/images/ocean1.jpg";
 
 const Home = () => {
   const total = useSelector((state) => state.packages.total);
@@ -115,11 +115,18 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-blue-50">
+    <div
+      style={{
+        backgroundImage: `url(${ocean})`, // Use the imported image in the background
+        backgroundSize: "cover", // Ensure the image covers the full screen
+        backgroundPosition: "center", // Center the image
+      }}
+      className="min-h-screen bg-blue-50 background"
+    >
       <Header />
       <TotalAmountBox total={total} />
-      <div className="max-w-4xl mx-auto p-6 pt-20">
-        <h1 className="text-3xl font-bold text-center text-teal-600 mb-6">
+      <div className="max-w-4xl mx-auto p-6 pt-10">
+        <h1 className="text-3xl font-bold text-center text-white mb-6">
           Plan Your Dream Trip to Goa!
         </h1>
         <div className="bg-white rounded-lg shadow-md p-6">
