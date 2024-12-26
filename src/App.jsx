@@ -8,6 +8,7 @@ import DinnerCruisePageDetails from "./pages/DinnerCruisePageDetails";
 import DhudSagarPageDetails from "./pages/DhudSagarPageDetails";
 import CheckoutPage from "./pages/CheckoutPage";
 import { useState } from "react";
+import Whatsapp from "./components/Whatsapp";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/dudhsagar" element={<DhudSagarPageDetails />} />
         <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
+      <Whatsapp />
     </>
   );
 }

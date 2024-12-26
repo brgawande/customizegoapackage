@@ -26,7 +26,7 @@ const Home = () => {
       name: "Hotel booking - 1200 per night (max-2 people)",
       price: 1200,
       hasQuantity: true,
-      quantityKey: "numberOfNights",
+      quantityKey: "numberOfPeople",
       link: "hotel",
     },
     {
@@ -103,6 +103,17 @@ const Home = () => {
     navigate(`/${pkgId}`);
   };
 
+  const handleCheckout = () => {
+    // Redirect to checkout with the selected packages and total
+    navigate("/checkout", {
+      state: {
+        selectedPackages,
+        total,
+        quantities,
+      },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-blue-50">
       <Header />
@@ -162,7 +173,7 @@ const Home = () => {
           <div className="text-center mt-8">
             <button
               className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
-              onClick={() => alert(`Total amount: ₹${total}`)}
+              onClick={handleCheckout}
             >
               Confirm Booking
             </button>
