@@ -5,14 +5,17 @@ import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
 
 // Import images for South Goa locations
-import miramarBeachImg from "../assets/images/ocean1.jpg";
-import donaPaulaImg from "../assets/images/ocean1.jpg";
-import bomJesusBasilicaImg from "../assets/images/ocean1.jpg";
-import seCathedralImg from "../assets/images/ocean1.jpg";
-import stAugustineTowerImg from "../assets/images/ocean1.jpg";
-import mangueshiTempleImg from "../assets/images/ocean1.jpg";
-import miniBalajiTempleImg from "../assets/images/ocean1.jpg";
-import riverCruiseImg from "../assets/images/ocean1.jpg";
+import acbus from "../assets/southgoa/acbus.jpg";
+import miramarBeachImg from "../assets/southgoa/miramar.jpg";
+import donaPaulaImg from "../assets/southgoa/donapaulaa.jpg";
+import bomJesusBasilicaImg from "../assets/southgoa/ballisca.jpg";
+import seCathedralImg from "../assets/southgoa/church.jpg";
+import stAugustineTowerImg from "../assets/southgoa/agustine.jpg";
+import mangueshiTempleImg from "../assets/southgoa/mangeshi.jpg";
+import miniBalajiTempleImg from "../assets/southgoa/balaji.webp";
+import riverCruiseImg from "../assets/southgoa/susent.jpg";
+import SinglePriceBoxMobile from "../components/SinglePriceBoxMobile";
+import SinglePriceBox from "../components/SinglePriceBox";
 
 const SouthGoaPageDetails = () => {
   const total = useSelector((state) => state.packages.total);
@@ -25,7 +28,7 @@ const SouthGoaPageDetails = () => {
       description:
         "Pickup Point: Calangute (fixed point closest to your hotel/resort). Start your day with a group pickup.",
       duration: "N/A",
-      image: null, // No image for pickup
+      image: acbus, // No image for pickup
     },
     {
       time: "09:30 AM",
@@ -114,14 +117,20 @@ const SouthGoaPageDetails = () => {
       <TotalAmountBox total={total} />
       <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
         {/* Title of the page */}
-        <h1 className="text-3xl font-bold text-white text-center mb-8">
-          South Goa Sightseeing Tour Itinerary
-        </h1>
+        {/* SinglePriceBox for desktop and tablet */}
+        <div className="hidden md:block">
+          <SinglePriceBox heading={"South Goa Tour - 350Rs"} />
+        </div>
+
+        {/* SinglePriceBoxMobile for mobile */}
+        <div className="block md:hidden">
+          <SinglePriceBoxMobile heading={"Price - 350Rs"} />
+        </div>
 
         {/* Itinerary Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-2xl font-semibold text-teal-700 mb-4">
-            Itinerary
+          <h2 className="text-2xl text-center font-semibold text-teal-700 mb-4">
+            South Goa Sightseeing Tour Itinerary
           </h2>
 
           {/* Itinerary Breakdown */}
@@ -141,7 +150,7 @@ const SouthGoaPageDetails = () => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="mt-4 w-full h-60 object-cover rounded-lg shadow-md"
+                  className="mt-4 w-full h-auto object-cover rounded-lg shadow-md"
                 />
               )}
             </div>
