@@ -10,6 +10,7 @@ const CheckoutPage = () => {
   // const total = useSelector((state) => state.packages.total);
   const location = useLocation();
   const { selectedPackages, total, quantities } = location.state;
+  const [isLoading, setIsLoading] = useState(false); // Add isLoading state
 
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -51,6 +52,7 @@ const CheckoutPage = () => {
   };
 
   const handleFormSubmit = async () => {
+    setIsLoading(true);
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
 
@@ -92,6 +94,8 @@ const CheckoutPage = () => {
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while confirming the booking.");
+    } finally {
+      setIsLoading(false); // Reset loading state after submission
     }
   };
 
@@ -186,10 +190,20 @@ const CheckoutPage = () => {
 
             <div className="text-center mt-8">
               <button
-                className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
+                className={`${
+                  isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-teal-600"
+                } text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300`}
                 onClick={handleFormSubmit}
+                disabled={isLoading} // Disable the button when loading
               >
-                Confirm Booking
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <div className="animate-spin border-4 border-t-4 border-teal-600 w-6 h-6 rounded-full"></div>
+                    <span className="ml-2">Submitting...</span>
+                  </div>
+                ) : (
+                  "Confirm Booking"
+                )}
               </button>
             </div>
           </div>
