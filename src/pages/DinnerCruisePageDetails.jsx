@@ -17,6 +17,7 @@ const DinnerCruisePageDetails = () => {
     >
       <Header />
       <TotalAmountBox total={total} />
+      <h1>Dinner Cruise Plan Upgrading - Chat on whatsapp for details</h1>
     </div>
   );
 };

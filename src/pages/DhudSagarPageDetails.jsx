@@ -17,6 +17,7 @@ const DhudSagarPageDetails = () => {
     >
       <Header />
       <TotalAmountBox total={total} />
+      <h1>Dush Sagar Plan Upgrading - Chat on whatsapp for details</h1>
     </div>
   );
 };

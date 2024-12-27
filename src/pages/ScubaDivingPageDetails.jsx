@@ -5,11 +5,18 @@ import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
 
 // Import images for Scuba Diving locations and activities
-import breakfastImg from "../assets/images/ocean1.jpg";
+import acbus from "../assets/scubadiving/acbus.jpg";
+import breakfastImg from "../assets/scubadiving/breakfast.webp";
 import malvanBeachImg from "../assets/images/ocean1.jpg";
-import scubaDivingImg from "../assets/images/ocean1.jpg";
-import waterSportsImg from "../assets/images/ocean1.jpg";
-import lunchImg from "../assets/images/ocean1.jpg";
+import scubaDivingImg from "../assets/scubadiving/scuba.jpg";
+import parasailing from "../assets/scubadiving/parasailing.jpg";
+import jetski from "../assets/scubadiving/jetskiee.jpg";
+import banana from "../assets/scubadiving/banana.jpg";
+import speeedboat from "../assets/scubadiving/speed boat.jpg";
+import bumper from "../assets/scubadiving/bumper.webp";
+import beach from "../assets/scubadiving/beach.jpeg";
+
+import lunchImg from "../assets/scubadiving/lunch.jpg";
 
 const ScubaDivingPageDetails = () => {
   const total = useSelector((state) => state.packages.total);
@@ -17,15 +24,15 @@ const ScubaDivingPageDetails = () => {
   // Scuba Diving Itinerary with Images
   const itinerary = [
     {
-      time: "7:00 AM",
+      time: "8:00 AM",
       title: "Pickup from Hotel",
       description:
         "Start your day with a prompt pickup from your hotel in North Goa (Calangute, Baga, Arpora, Candolim, and Sinquerim). Enjoy comfortable AC transportation.",
-      duration: "N/A",
-      image: null, // No image for pickup
+      duration: "10 Min",
+      image: acbus, // No image for pickup
     },
     {
-      time: "8:00 AM",
+      time: "9:00 AM",
       title: "Complimentary Breakfast",
       description:
         "On the way to Malvan, enjoy a complimentary South Indian breakfast with choices like idli, vada, dosa, or upma with hot tea or coffee.",
@@ -34,27 +41,59 @@ const ScubaDivingPageDetails = () => {
     },
     {
       time: "10:00 AM",
-      title: "Arrival at Malvan Beach",
+      title: "Arrival at Beach",
       description:
-        "Arrive at Malvan Beach by around 10 AM. Get a briefing on the day’s activities and complete the registration at the Water Sports counter.",
+        "Arrive at  Beach by around 10 AM. Get a briefing on the day’s activities and complete the registration at the Water Sports counter.",
       duration: "30 minutes",
-      image: malvanBeachImg,
+      image: beach,
     },
     {
       time: "10:30 AM",
-      title: "Scuba Diving and Water Sports (Batch 1)",
+      title: "Scuba Diving ",
       description:
         "For Group 1: Scuba Diving - The first group heads to the dive site for a safety briefing, basic training, and an exciting dive under the supervision of expert instructors.",
       duration: "1 hour",
       image: scubaDivingImg,
     },
     {
-      time: "10:30 AM",
-      title: "Water Sports (Batch 2)",
+      time: "",
+      title: "Parasailing",
       description:
-        "For Group 2: Water Sports - Enjoy thrilling water sports activities including Jet Skiing, Banana Ride, Bumper Ride, and Speed Boat rides.",
-      duration: "1 hour",
-      image: waterSportsImg,
+        "For Group 2: Parasailing - Soar high above the water and enjoy breathtaking views during this exhilarating parasailing adventure..",
+      duration: "",
+      image: parasailing,
+    },
+    {
+      time: "",
+      title: "JetSki",
+      description:
+        "For Group 2: JetSki - Experience the thrill of jet skiing on the water with unmatched speed and adventure, perfect for adrenaline seekers.",
+      duration: "",
+      image: jetski,
+    },
+    {
+      time: "",
+      title: "Banana Ride",
+      description:
+        "For Group 2:  Hold on tight and laugh with friends as you ride the waves on this fun-filled banana boat ride.",
+      duration: "",
+      image: banana,
+    },
+    {
+      time: "",
+      title: "Speed Boat",
+      description:
+        "For Group 2: Feel the adrenaline rush as you race across the water on a high-speed boat ride.",
+      duration: "",
+      image: speeedboat,
+    },
+    {
+      time: "",
+      title: "Bumper Ride",
+      description:
+        "For Group 2: Bounce and splash across the water in this exciting bumper ride experience.",
+      duration: "",
+      image: bumper,
     },
     {
       time: "12:00 PM",
@@ -68,13 +107,13 @@ const ScubaDivingPageDetails = () => {
       time: "1:30 PM - 2:00 PM",
       title: "Lunch (Thali)",
       description:
-        "After all activities are completed, enjoy a fulfilling Veg/Non-Veg Thali lunch at a local restaurant in Malvan. Taste traditional Malvani dishes.",
+        "After all activities are completed, enjoy a fulfilling Veg/Non-Veg Thali lunch . Taste traditional Malvani dishes.",
       duration: "1 hour",
       image: lunchImg,
     },
     {
       time: "2:30 PM",
-      title: "Departure from Malvan",
+      title: "Departure ",
       description:
         "After lunch, relax and prepare for the return journey to North Goa. Board the bus back to your hotel.",
       duration: "N/A",
@@ -130,7 +169,7 @@ const ScubaDivingPageDetails = () => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="mt-4 w-full h-60 object-cover rounded-lg shadow-md"
+                  className="mt-4 w-full h-auto object-contain rounded-lg shadow-md"
                 />
               )}
             </div>
@@ -152,7 +191,7 @@ const ScubaDivingPageDetails = () => {
             <li>
               Water Sports: Jet Ski, Banana Ride, Bumper Ride, Speed Boat.
             </li>
-            <li>Veg/Non-Veg Thali lunch at a local restaurant in Malvan.</li>
+            <li>Veg/Non-Veg Thali lunch.</li>
           </ul>
         </div>
 
@@ -172,13 +211,6 @@ const ScubaDivingPageDetails = () => {
               conditions.
             </li>
           </ul>
-        </div>
-
-        {/* Booking Button */}
-        <div className="text-center mt-8">
-          <button className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300">
-            Book Now
-          </button>
         </div>
       </div>
     </div>
