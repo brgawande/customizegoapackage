@@ -72,7 +72,7 @@ const CheckoutPage = () => {
     // Send the data to the backend to create the booking
     try {
       const response = await fetch(
-        "http://localhost:3000/api/booking/create-booking",
+        "https://customizegoabackend.onrender.com/api/booking/create-booking",
         {
           method: "POST",
           headers: {
