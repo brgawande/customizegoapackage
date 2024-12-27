@@ -3,12 +3,16 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
-import fortAguadaImg from "../assets/images/ocean1.jpg"; // Sample image
-import senquirimFortImg from "../assets/images/ocean1.jpg";
-import bagaBeachImg from "../assets/images/ocean1.jpg";
-import anjunaBeachImg from "../assets/images/ocean1.jpg";
-import vagatorBeachImg from "../assets/images/ocean1.jpg";
-import thunderWorldImg from "../assets/images/ocean1.jpg";
+import acbus from "../assets/northgoa/acbus.jpg"; // Sample image
+import lunch from "../assets/northgoa/lunch.jpg"; // Sample image
+import fortAguadaImg from "../assets/northgoa/aguada.jpg"; // Sample image
+import senquirimFortImg from "../assets/northgoa/sinquerium.jpg";
+import bagaBeachImg from "../assets/northgoa/baga.jpg";
+import anjunaBeachImg from "../assets/northgoa/anjuna.jpeg";
+import vagatorBeachImg from "../assets/northgoa/vagator.jpg";
+import thunderWorldImg from "../assets/northgoa/thunderworld.jpg";
+import SinglePriceBox from "../components/SinglePriceBox";
+import SinglePriceBoxMobile from "../components/SinglePriceBoxMobile";
 
 const NorthGoaPageDetails = () => {
   const total = useSelector((state) => state.packages.total);
@@ -21,7 +25,7 @@ const NorthGoaPageDetails = () => {
       description:
         "Pickup Location: Hotel or designated spot in the Baga/Calangute area. Travel Mode: Shared coach.",
       duration: "N/A",
-      image: null, // No image for pickup
+      image: acbus, // No image for pickup
     },
     {
       time: "9:00 AM",
@@ -53,7 +57,7 @@ const NorthGoaPageDetails = () => {
       description:
         "Enjoy a delicious lunch at a local restaurant or as per the tour package arrangement.",
       duration: "1 hour",
-      image: null, // No image for lunch
+      image: lunch, // No image for lunch
     },
     {
       time: "1:30 PM",
@@ -108,14 +112,21 @@ const NorthGoaPageDetails = () => {
       <TotalAmountBox total={total} />
       <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
         {/* Title of the page */}
-        <h1 className="text-3xl font-bold text-white text-center mb-8">
-          North Goa Sightseeing Tour Itinerary
-        </h1>
+
+        {/* SinglePriceBox for desktop and tablet */}
+        <div className="hidden md:block">
+          <SinglePriceBox heading={"North Goa Tour - 350Rs"} />
+        </div>
+
+        {/* SinglePriceBoxMobile for mobile */}
+        <div className="block md:hidden">
+          <SinglePriceBoxMobile heading={"Price - 350Rs"} />
+        </div>
 
         {/* Itinerary Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-2xl font-semibold text-center text-teal-700 mb-4">
-            Itinerary
+            North Goa Sightseeing Tour Itinerary
           </h2>
 
           {/* Itinerary Breakdown */}
@@ -135,7 +146,7 @@ const NorthGoaPageDetails = () => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="mt-4 w-full h-60 object-cover rounded-lg shadow-md"
+                  className="mt-4 w-full h-auto object-contain md:object-cover rounded-lg shadow-md"
                 />
               )}
             </div>
@@ -166,11 +177,11 @@ const NorthGoaPageDetails = () => {
         </div>
 
         {/* Booking Button */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <button className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300">
             Book Now
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
