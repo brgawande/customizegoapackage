@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
@@ -98,6 +98,10 @@ const NorthGoaPageDetails = () => {
       image: null, // No image for drop-off
     },
   ];
+  useEffect(() => {
+    // Scroll to top when the page loads or component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div

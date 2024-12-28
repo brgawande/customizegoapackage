@@ -56,10 +56,18 @@ const Home = () => {
     {
       id: 5,
       name: "Dudhsagar Waterfall - 2500 per person",
-      price: 2500,
+      price: 2000,
       hasQuantity: true,
       quantityKey: "numberOfPeople",
       link: "dudhsagar",
+    },
+    {
+      id: 6,
+      name: "Dinner Cruise - 1200 per person",
+      price: 1200,
+      hasQuantity: true,
+      quantityKey: "numberOfPeople",
+      link: "dinnercruise",
     },
   ];
 
@@ -170,7 +178,8 @@ const Home = () => {
                     Details
                   </button>
                   <span className="text-teal-800 font-bold">
-                    ₹{pkg.price} per person
+                    ₹{pkg.price}
+                    {pkg?.id === 1 ? " per Night" : "per person"}
                   </span>
                   <input
                     type="checkbox"

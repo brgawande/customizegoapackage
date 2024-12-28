@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
@@ -15,6 +15,11 @@ const HotelPageDetails = () => {
     "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGhvdGVsfGVufDB8fDB8fHww",
     "https://images.unsplash.com/photo-1541971875076-8f970d573be6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGhvdGVsfGVufDB8fDB8fHww",
   ];
+
+  useEffect(() => {
+    // Scroll to top when the page loads or component mounts
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div
       style={{
@@ -26,9 +31,12 @@ const HotelPageDetails = () => {
     >
       <Header />
       <TotalAmountBox total={total} />
-      <div className="pt-[150px]">
+      {/* <div className="pt-[150px]">
         <ReusableSwiper images={images} slidesPerView={3} spaceBetween={20} />
-      </div>
+      </div> */}
+      <h1 className="text-center text-xl font-bold text-white flex items-center min-h-screen justify-center">
+        Hotel are Upgrading - Chat on whatsapp for details
+      </h1>
     </div>
   );
 };

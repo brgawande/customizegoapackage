@@ -13,6 +13,7 @@ const CheckoutPage = () => {
   const [isLoading, setIsLoading] = useState(false); // Add isLoading state
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [advancePaid, setAdvancePaid] = useState(null);
 
   const packages = [
     {
@@ -40,6 +41,11 @@ const CheckoutPage = () => {
       name: "Dudhsagar Waterfall - 2500 per person",
       price: 2500,
     },
+    {
+      id: 6,
+      name: "Dinner Cruise - 1200 per person",
+      price: 1200,
+    },
   ];
 
   // Get details for the selected packages
@@ -51,6 +57,56 @@ const CheckoutPage = () => {
     setIsFormVisible(!isFormVisible);
   };
 
+  // const handleFormSubmit = async () => {
+
+  //   setIsLoading(true);
+  //   const name = document.getElementById("name").value;
+  //   const phone = document.getElementById("phone").value;
+
+  //   // Create the payload with the form data and selected package details
+  //   const bookingData = {
+  //     name,
+  //     phone,
+  //     totalAmount: total,
+  //     advancePaid, // Include the advance payment status
+  //     selectedPackages: selectedPackages.map((pkgId) => {
+  //       const pkg = packages.find((p) => p.id === pkgId);
+  //       return {
+  //         id: pkg.id,
+  //         price: pkg.price,
+  //         quantity: quantities[pkg.id]?.numberOfPeople || 1,
+  //       };
+  //     }),
+  //   };
+
+  //   // Send the data to the backend to create the booking
+  //   try {
+  //     const response = await fetch(
+  //       "https://customizegoabackend.onrender.com/api/booking/create-booking",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(bookingData),
+  //       }
+  //     );
+
+  //     const result = await response.json();
+  //     if (response.status === 201) {
+  //       alert("Booking Confirmed!");
+  //       // Redirect to a confirmation page or thank you page
+  //     } else {
+  //       alert("Error creating booking: " + result.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("An error occurred while confirming the booking.");
+  //   } finally {
+  //     setIsLoading(false); // Reset loading state after submission
+  //   }
+  // };
+
   const handleFormSubmit = async () => {
     setIsLoading(true);
     const name = document.getElementById("name").value;
@@ -61,39 +117,93 @@ const CheckoutPage = () => {
       name,
       phone,
       totalAmount: total,
+      advancePaid, // Include the advance payment status
       selectedPackages: selectedPackages.map((pkgId) => {
         const pkg = packages.find((p) => p.id === pkgId);
         return {
           id: pkg.id,
+          name: pkg.name,
           price: pkg.price,
           quantity: quantities[pkg.id]?.numberOfPeople || 1,
         };
       }),
     };
 
-    // Send the data to the backend to create the booking
+    // Generate the HTML email body
+    const generateEmailHTML = (data) => {
+      const packageRows = data.selectedPackages
+        .map(
+          (pkg) => `
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 8px;">${pkg.name}</td>
+        <td style="border: 1px solid #ddd; padding: 8px;">₹${pkg.price}</td>
+        <td style="border: 1px solid #ddd; padding: 8px;">${pkg.quantity}</td>
+        <td style="border: 1px solid #ddd; padding: 8px;">₹${
+          pkg.price * pkg.quantity
+        }</td>
+      </tr>
+    `
+        )
+        .join("");
+
+      return `
+      <h2>Booking Confirmation</h2>
+      <p><strong>Name:</strong> ${data.name}</p>
+      <p><strong>Phone:</strong> ${data.phone}</p>
+      <p><strong>Advance Paid:</strong> ${
+        data.advancePaid === "yes" ? "Yes" : "No"
+      }</p>
+      <table style="border-collapse: collapse; width: 100%; margin-top: 20px;">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px;">Package Name</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Price</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Quantity</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${packageRows}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3" style="border: 1px solid #ddd; padding: 8px; text-align: right; font-weight: bold;">Grand Total</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">₹${
+              data.totalAmount
+            }</td>
+          </tr>
+        </tfoot>
+      </table>
+    `;
+    };
+
+    const emailHTML = generateEmailHTML(bookingData);
+
+    // Send email using nodemailer
     try {
-      const response = await fetch(
-        "https://customizegoabackend.onrender.com/api/booking/create-booking",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(bookingData),
-        }
-      );
+      const response = await fetch("http://localhost:3000/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "brgawande@gmail.com", // Replace with your email
+          subject: "New Booking Confirmation",
+          html: emailHTML,
+        }),
+      });
 
       const result = await response.json();
-      if (response.status === 201) {
-        alert("Booking Confirmed!");
-        // Redirect to a confirmation page or thank you page
+      if (response.ok) {
+        alert(
+          "Booking Confirmed, You will recieve a Conformation call Shortly!"
+        );
       } else {
-        alert("Error creating booking: " + result.message);
+        alert("Error sending email: " + result.message);
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while confirming the booking.");
+      alert("An error occurred Try Again or Contact on Whatsapp");
     } finally {
       setIsLoading(false); // Reset loading state after submission
     }
@@ -176,6 +286,31 @@ const CheckoutPage = () => {
                   className="border border-gray-300 rounded-lg p-2"
                   placeholder="Enter your phone number"
                 />
+
+                {/* Advance Amount Paid selection */}
+                <label className="text-teal-700 font-semibold mt-4">
+                  Advance Amount Paid
+                </label>
+                <div className="flex gap-6">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="yes"
+                      checked={advancePaid === "yes"}
+                      onChange={() => setAdvancePaid("yes")}
+                    />
+                    <span className="ml-2">Yes</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      value="no"
+                      checked={advancePaid === "no"}
+                      onChange={() => setAdvancePaid("no")}
+                    />
+                    <span className="ml-2">No</span>
+                  </label>
+                </div>
               </div>
 
               {/* Right side: QR Code */}
