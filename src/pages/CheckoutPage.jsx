@@ -181,17 +181,20 @@ const CheckoutPage = () => {
 
     // Send email using nodemailer
     try {
-      const response = await fetch("http://localhost:3000/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          to: "brgawande@gmail.com", // Replace with your email
-          subject: "New Booking Confirmation",
-          html: emailHTML,
-        }),
-      });
+      const response = await fetch(
+        "https://customizegoabackend.onrender.com/api/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            to: "brgawande@gmail.com", // Replace with your email
+            subject: "New Booking Confirmation",
+            html: emailHTML,
+          }),
+        }
+      );
 
       const result = await response.json();
       if (response.ok) {
