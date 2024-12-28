@@ -24,7 +24,7 @@ const Home = () => {
     {
       id: 1,
       name: "Hotel booking - 1200 per night (max-2 people)",
-      price: 1200,
+      price: 2000,
       hasQuantity: true,
       quantityKey: "numberOfPeople",
       link: "hotel",
@@ -125,35 +125,42 @@ const Home = () => {
   return (
     <div
       style={{
-        backgroundImage: `url(${ocean})`, // Use the imported image in the background
+        backgroundImage: `url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhY2h8ZW58MHx8MHx8fDA%3D")`, // Corrected syntax
         backgroundSize: "cover", // Ensure the image covers the full screen
         backgroundPosition: "center", // Center the image
       }}
-      className="min-h-screen bg-blue-50"
+      className="min-h-screen bg-blue-50 z-0"
     >
       <Header />
       <TotalAmountBox total={total} />
       <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
-        <h1 className="text-2xl md:text-3xl font-bold text-center text-white mb-6">
-          Plan Your Dream Trip to Goa!
-        </h1>
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div
+          style={{
+            backdropFilter: "blur(30px)", // Apply blur effect
+            backgroundColor: "rgba(255, 255, 255, 0.2)", // Semi-transparent white
+            border: "1px solid rgba(255, 255, 255, 0.2)", // Optional border for glass effect
+          }}
+          className="rounded-lg shadow-md p-6"
+        >
+          <h1 className="text-2xl md:text-3xl font-bold text-center  text-[#008490] mb-6 ">
+            Plan Your Dream Trip to Goa!
+          </h1>
           <form>
             {packages.map((pkg) => (
               <div
                 key={pkg.id}
-                className="flex flex-col md:flex-row items-center justify-between mb-6 p-4 bg-teal-100 rounded-lg shadow-sm"
+                className="flex flex-col md:flex-row items-center justify-between mb-6 p-4 bg-[#008490] rounded-lg shadow-sm"
               >
                 <div className=" flex gap-2">
                   <div className=" mb-4 md:mb-0">
-                    <h2 className="text-lg font-medium text-teal-700">
+                    <h2 className="text-lg font-medium text-white">
                       {pkg.name}
                     </h2>
                   </div>
                   {pkg.hasQuantity && (
                     <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
                       <select
-                        className="border border-gray-300 rounded px-1 md:px-4 py-2 text-teal-700 font-medium w-[45px] md:w-auto"
+                        className="border border-gray-300 rounded px-1 md:px-3 py-1 text-teal-700 font-medium w-[45px] md:w-auto"
                         value={quantities[pkg.id]?.[pkg.quantityKey] || 1}
                         onChange={(e) =>
                           handleQuantityChange(pkg, e.target.value)
@@ -177,7 +184,7 @@ const Home = () => {
                   >
                     Details
                   </button>
-                  <span className="text-teal-800 font-bold">
+                  <span className="text-white font-bold">
                     ₹{pkg.price}
                     {pkg?.id === 1 ? " per Night" : "per person"}
                   </span>
