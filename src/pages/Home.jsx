@@ -137,8 +137,9 @@ const Home = () => {
         <div
           style={{
             backdropFilter: "blur(30px)", // Apply blur effect
-            backgroundColor: "rgba(255, 255, 255, 0.2)", // Semi-transparent white
+            backgroundColor: "rgba(255, 255, 255, 0.1)", // Semi-transparent white
             border: "1px solid rgba(255, 255, 255, 0.2)", // Optional border for glass effect
+            zIndex: 1,
           }}
           className="rounded-lg shadow-md p-6"
         >
