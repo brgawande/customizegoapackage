@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
-import acbus from "../assets/northgoa/acbus.jpg"; // Sample image
+import acbus from "../assets/northgoa/acbus1.webp"; // Sample image
 import lunch from "../assets/northgoa/lunch.jpg"; // Sample image
 import fortAguadaImg from "../assets/northgoa/aguada.jpg"; // Sample image
 import senquirimFortImg from "../assets/northgoa/sinquerium.jpg";

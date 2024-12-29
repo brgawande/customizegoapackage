@@ -5,7 +5,7 @@ import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
 
 // Import images for South Goa locations
-import acbus from "../assets/southgoa/acbus.jpg";
+import acbus from "../assets/northgoa/acbus1.webp";
 import miramarBeachImg from "../assets/southgoa/miramar.jpg";
 import donaPaulaImg from "../assets/southgoa/donapaulaa.jpg";
 import bomJesusBasilicaImg from "../assets/southgoa/ballisca.jpg";

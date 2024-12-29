@@ -5,7 +5,7 @@ import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
 
 // Import images for Scuba Diving locations and activities
-import acbus from "../assets/scubadiving/acbus.jpg";
+import acbus from "../assets/northgoa/acbus1.webp";
 import breakfastImg from "../assets/scubadiving/breakfast.webp";
 import malvanBeachImg from "../assets/images/ocean1.jpg";
 import scubaDivingImg from "../assets/scubadiving/scuba.jpg";

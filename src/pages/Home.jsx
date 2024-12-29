@@ -23,7 +23,7 @@ const Home = () => {
   const packages = [
     {
       id: 1,
-      name: "Hotel booking - 1200 per night (max-2 people)",
+      name: "Hotel booking - 2000 per night (max-2 people)",
       price: 2000,
       hasQuantity: true,
       quantityKey: "numberOfPeople",
@@ -55,7 +55,7 @@ const Home = () => {
     },
     {
       id: 5,
-      name: "Dudhsagar Waterfall - 2500 per person",
+      name: "Dudhsagar Waterfall - 2000 per person",
       price: 2000,
       hasQuantity: true,
       quantityKey: "numberOfPeople",
@@ -161,7 +161,7 @@ const Home = () => {
                   {pkg.hasQuantity && (
                     <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
                       <select
-                        className="border border-gray-300 rounded px-1 md:px-3 py-1 text-teal-700 font-medium w-[45px] md:w-auto"
+                        className="border border-gray-300 rounded px-1 md:px-2 py-1 text-teal-700 font-medium w-[45px] md:w-auto"
                         value={quantities[pkg.id]?.[pkg.quantityKey] || 1}
                         onChange={(e) =>
                           handleQuantityChange(pkg, e.target.value)
@@ -185,9 +185,9 @@ const Home = () => {
                   >
                     Details
                   </button>
-                  <span className="text-white font-bold">
-                    ₹{pkg.price}
-                    {pkg?.id === 1 ? " per Night" : "per person"}
+                  <span className="text-white">
+                    <span className=" font-bold">₹{pkg.price}</span>
+                    {pkg?.id === 1 ? " per Night" : " per person"}
                   </span>
                   <input
                     type="checkbox"
