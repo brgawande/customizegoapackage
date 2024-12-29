@@ -186,11 +186,11 @@ const SouthGoaPageDetails = () => {
         </div>
 
         {/* Booking Button */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <button className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300">
             Book Now
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

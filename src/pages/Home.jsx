@@ -47,7 +47,7 @@ const Home = () => {
     },
     {
       id: 4,
-      name: "Scuba Diving + water activities - 350 per person",
+      name: "Scuba Diving + water activities - 1500 per person",
       price: 1500,
       hasQuantity: true,
       quantityKey: "numberOfPeople",

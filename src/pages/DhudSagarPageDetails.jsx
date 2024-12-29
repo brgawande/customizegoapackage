@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
 import ocean from "../assets/images/ocean1.jpg";
-import jeepSafariImg from "../assets/images/ocean1.jpg";
-import dudhsagarWaterfallImg from "../assets/images/ocean1.jpg";
-import spicePlantationImg from "../assets/images/ocean1.jpg";
+import acbus from "../assets/northgoa/acbus1.webp";
+import jeepSafariImg from "../assets/sudhsagar/jeep.jpg";
+import dudhsagarWaterfallImg from "../assets/sudhsagar/waterfall.webp";
+import spicePlantationImg from "../assets/sudhsagar/spice.webp";
 import SinglePriceBox from "../components/SinglePriceBox";
 import SinglePriceBoxMobile from "../components/SinglePriceBoxMobile";
 
@@ -18,8 +19,8 @@ const DhudSagarPageDetails = () => {
       title: "Pickup from North Goa Hotel",
       description:
         "The trip will start at 6.00 am and our driver will pick you up from your hotel or residence by AC Executive Coach. Our driver will drop you at the parking area near Mollem National Park. Pickup points include Baga, Calangute, Arpora, Candolim & Panjim.",
-      duration: "N/A",
-      image: null, // No image for pickup
+      duration: "30 min",
+      image: acbus, // No image for pickup
     },
     {
       time: "9:30 AM",
@@ -133,11 +134,11 @@ const DhudSagarPageDetails = () => {
         </div>
 
         {/* Booking Button */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <button className="bg-teal-600 text-white font-bold py-2 px-6 rounded-lg shadow-md hover:bg-teal-700 transition duration-300">
             Book Now
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

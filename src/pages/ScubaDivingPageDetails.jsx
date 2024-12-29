@@ -17,6 +17,8 @@ import bumper from "../assets/scubadiving/bumper.webp";
 import beach from "../assets/scubadiving/beach.jpeg";
 
 import lunchImg from "../assets/scubadiving/lunch.jpg";
+import SinglePriceBoxMobile from "../components/SinglePriceBoxMobile";
+import SinglePriceBox from "../components/SinglePriceBox";
 
 const ScubaDivingPageDetails = () => {
   const total = useSelector((state) => state.packages.total);
@@ -146,6 +148,14 @@ const ScubaDivingPageDetails = () => {
       <Header />
       <TotalAmountBox total={total} />
       <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
+        <div className="hidden md:block">
+          <SinglePriceBox heading={"South Goa Tour - 1500Rs"} />
+        </div>
+
+        {/* SinglePriceBoxMobile for mobile */}
+        <div className="block md:hidden">
+          <SinglePriceBoxMobile heading={"Price - 1500Rs"} />
+        </div>
         {/* Title of the page */}
         <h1 className="text-3xl font-bold text-white text-center mb-8">
           Scuba Diving with Water Sports Itinerary
