@@ -44,10 +44,21 @@ const Home = () => {
   ];
 
   const pickthivim = [
+    { id: "smallcar", name: "Swift", price: 3000, profit: 700 },
+    { id: "ertiga", name: "Ertiga", price: 4000, profit: 1200 },
+    { id: "innova", name: "Innova", price: 4500, profit: 900 },
+    { id: "temp", name: "Tempo 15 Seater", price: 8000, profit: 1200 },
+    { id: "temp20", name: "Tempo 20 Seater", price: 10000, profit: 2200 },
+    {
+      id: "minicoach",
+      name: "Mini Coach 30 Seater",
+      price: 13000,
+      profit: 2000,
+    },
+  ];
+  const pickairport = [
     { id: "smallcar", name: "Swift", price: 3000, profit: 200 },
-    { id: "ertiga", name: "Ertiga", price: 4000, profit: 200 },
-    { id: "innova", name: "Innova", price: 4500, profit: 200 },
-    { id: "traveller", name: "traveller", price: 5500, profit: 200 },
+    { id: "ertiga", name: "Ertiga", price: 4500, profit: 500 },
   ];
 
   const roomdecor = [
@@ -64,13 +75,13 @@ const Home = () => {
       id: "northGoa",
       name: "North Goa Sightseeing",
       price: 350,
-      profit: 200,
+      profit: 50,
     },
     {
       id: "southGoa",
       name: "South Goa Sightseeing",
       price: 350,
-      profit: 200,
+      profit: 50,
     },
   ];
 
@@ -79,11 +90,11 @@ const Home = () => {
       id: "scuba",
       name: "Scuba Diving + Water Activities",
       price: 1500,
-      profit: 200,
+      profit: 300,
     },
-    { id: "cruise", name: "Dinner Cruise", price: 1300, profit: 200 },
+    { id: "cruise", name: "Dinner Cruise", price: 1300, profit: 300 },
     { id: "dudhsagar", name: "Dudhsagar Waterfall", price: 2000, profit: 200 },
-    { id: "bunjee", name: "Bunjee Jumping", price: 3500, profit: 200 },
+    { id: "bunjee", name: "Bunjee Jumping", price: 3500, profit: 1000 },
   ];
 
   const [openDropdowns, setOpenDropdowns] = useState({});
@@ -179,6 +190,11 @@ const Home = () => {
                 category: "Pick-up Thivim",
                 items: pickthivim,
                 quantityKey: "cars",
+              },
+              {
+                category: "Pick-up Airport",
+                items: pickairport,
+                quantityKey: "carsl",
               },
               {
                 category: "Room Decor",
