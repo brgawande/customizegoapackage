@@ -1,8 +1,8 @@
-// store/packageSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   total: 0,
+  profit: 0,
   selectedPackages: [],
   quantities: {},
 };
@@ -14,6 +14,9 @@ const packageSlice = createSlice({
     setTotal: (state, action) => {
       state.total = action.payload; // Update the total
     },
+    setProfit: (state, action) => {
+      state.profit = action.payload; // Update the profit
+    },
     setSelectedPackages: (state, action) => {
       state.selectedPackages = action.payload; // Update the selected packages
     },
@@ -23,6 +26,6 @@ const packageSlice = createSlice({
   },
 });
 
-export const { setTotal, setSelectedPackages, setQuantities } =
+export const { setTotal, setProfit, setSelectedPackages, setQuantities } =
   packageSlice.actions;
 export default packageSlice.reducer;

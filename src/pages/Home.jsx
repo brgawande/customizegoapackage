@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
 import TotalAmountBox from "../components/TotalAmountBox";
+import ProfitBox from "../components/ProfitBox";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setTotal,
+  setProfit,
   setSelectedPackages,
   setQuantities,
 } from "../store/packageSlice";
-import ocean from "../assets/images/ocean1.jpg";
 
 const Home = () => {
   const total = useSelector((state) => state.packages.total);
+  const profit = useSelector((state) => state.packages.profit); // Get profit from Redux
   const selectedPackages = useSelector(
     (state) => state.packages.selectedPackages
   );
@@ -20,189 +21,250 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const packages = [
+  const hotels = [
+    { id: "hotel1", name: "Blossom Resort Candolim", price: 2100, profit: 200 },
+    { id: "hotel2", name: "Shalom Indus Candolim", price: 2150, profit: 200 },
+    { id: "hotel3", name: "De Falcon Candolim", price: 3100, profit: 200 },
     {
-      id: 1,
-      name: "Hotel booking - 2000 per night (max-2 people)",
-      price: 2000,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "hotel",
-    },
-    {
-      id: 2,
-      name: "North Goa Sightseeing - 350 per person",
-      price: 350,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "northgoa",
-    },
-    {
-      id: 3,
-      name: "South Goa Sightseeing - 350 per person",
-      price: 350,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "southgoa",
-    },
-    {
-      id: 4,
-      name: "Scuba Diving + water activities - 1500 per person",
-      price: 1500,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "scubadiving",
-    },
-    {
-      id: 5,
-      name: "Dudhsagar Waterfall - 2000 per person",
-      price: 2000,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "dudhsagar",
-    },
-    {
-      id: 6,
-      name: "Dinner Cruise - 1200 per person",
-      price: 1200,
-      hasQuantity: true,
-      quantityKey: "numberOfPeople",
-      link: "dinnercruise",
+      id: "hotel4",
+      name: "The Karishma Grand Calangute",
+      price: 3700,
+      profit: 200,
     },
   ];
 
-  const handleSelection = (pkg) => {
-    const { id, price, hasQuantity, quantityKey } = pkg;
-    const quantity = hasQuantity ? quantities[id]?.[quantityKey] || 1 : 1;
-    const packagePrice = price * quantity;
+  const apartments = [
+    { id: "apartment1", name: "Apartment 1BHK", price: 2500, profit: 200 },
+    { id: "apartment2", name: "Apartment 2BHK", price: 3500, profit: 200 },
+  ];
+
+  const guesthouse = [
+    { id: "guesthouse1", name: "Guest House 1", price: 1700, profit: 200 },
+    { id: "guesthouse2", name: "Guest House 2", price: 1500, profit: 200 },
+  ];
+
+  const pickthivim = [
+    { id: "smallcar", name: "Swift", price: 3000, profit: 200 },
+    { id: "ertiga", name: "Ertiga", price: 4000, profit: 200 },
+    { id: "innova", name: "Innova", price: 4500, profit: 200 },
+    { id: "traveller", name: "traveller", price: 5500, profit: 200 },
+  ];
+
+  const roomdecor = [
+    {
+      id: "honeymoonroom",
+      name: "HoneyMoon Room Decoration",
+      price: 2000,
+      profit: 200,
+    },
+  ];
+
+  const sightseeing = [
+    {
+      id: "northGoa",
+      name: "North Goa Sightseeing",
+      price: 350,
+      profit: 200,
+    },
+    {
+      id: "southGoa",
+      name: "South Goa Sightseeing",
+      price: 350,
+      profit: 200,
+    },
+  ];
+
+  const activities = [
+    {
+      id: "scuba",
+      name: "Scuba Diving + Water Activities",
+      price: 1500,
+      profit: 200,
+    },
+    { id: "cruise", name: "Dinner Cruise", price: 1300, profit: 200 },
+    { id: "dudhsagar", name: "Dudhsagar Waterfall", price: 2000, profit: 200 },
+    { id: "bunjee", name: "Bunjee Jumping", price: 3500, profit: 200 },
+  ];
+
+  const [openDropdowns, setOpenDropdowns] = useState({});
+
+  const toggleDropdown = (category) => {
+    setOpenDropdowns((prevState) => ({
+      ...prevState,
+      [category]: !prevState[category],
+    }));
+  };
+
+  const handleSelection = (pkg, quantityKey, quantity) => {
+    const { id, price, profit: itemProfit } = pkg;
+    const isSelected = selectedPackages.includes(id);
+    const effectiveQuantity = quantity || 1;
 
     let updatedSelectedPackages;
-    if (selectedPackages.includes(id)) {
+    if (isSelected) {
       updatedSelectedPackages = selectedPackages.filter(
         (packageId) => packageId !== id
       );
-      dispatch(setTotal(total - packagePrice)); // Update total after removal
+      dispatch(setTotal(total - price * effectiveQuantity));
+      dispatch(setProfit(profit - itemProfit * effectiveQuantity));
     } else {
       updatedSelectedPackages = [...selectedPackages, id];
-      dispatch(setTotal(total + packagePrice)); // Update total after addition
+      dispatch(setTotal(total + price * effectiveQuantity));
+      dispatch(setProfit(profit + itemProfit * effectiveQuantity));
     }
 
-    dispatch(setSelectedPackages(updatedSelectedPackages)); // Update selected packages
+    dispatch(setSelectedPackages(updatedSelectedPackages));
+
+    const updatedQuantities = {
+      ...quantities,
+      [id]: { [quantityKey]: effectiveQuantity },
+    };
+    dispatch(setQuantities(updatedQuantities));
   };
 
-  const handleQuantityChange = (pkg, value) => {
-    const { id, price, hasQuantity, quantityKey } = pkg;
+  const handleQuantityChange = (pkg, quantityKey, value) => {
+    const { id, price, profit: itemProfit } = pkg;
     const quantity = parseInt(value, 10) || 1;
+    const prevQuantity = quantities[id]?.[quantityKey] || 1;
 
     const updatedQuantities = {
       ...quantities,
       [id]: { [quantityKey]: quantity },
     };
-    dispatch(setQuantities(updatedQuantities)); // Update quantities
+    dispatch(setQuantities(updatedQuantities));
 
     if (selectedPackages.includes(id)) {
-      const prevQuantity = quantities[id]?.[quantityKey] || 1;
       const priceDifference = (quantity - prevQuantity) * price;
-      dispatch(setTotal(total + priceDifference)); // Update total based on quantity change
+      const profitDifference = (quantity - prevQuantity) * itemProfit;
+      dispatch(setTotal(total + priceDifference));
+      dispatch(setProfit(profit + profitDifference));
     }
-  };
-
-  const handleViewDetails = (pkgId) => {
-    navigate(`/${pkgId}`);
-  };
-
-  const handleCheckout = () => {
-    // Redirect to checkout with the selected packages and total
-    navigate("/checkout", {
-      state: {
-        selectedPackages,
-        total,
-        quantities,
-      },
-    });
   };
 
   return (
     <div
       style={{
-        backgroundImage: `url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhY2h8ZW58MHx8MHx8fDA%3D")`, // Corrected syntax
-        backgroundSize: "cover", // Ensure the image covers the full screen
-        backgroundPosition: "center", // Center the image
+        backgroundImage: `url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhY2h8ZW58MHx8MHx8fDA%3D")`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
       className="min-h-screen bg-blue-50 z-0"
     >
-      <Header />
       <TotalAmountBox total={total} />
+      <ProfitBox profit={profit} />
       <div className="max-w-4xl mx-auto p-6 pt-[70px] md:pt-10">
-        <div
-          style={{
-            backdropFilter: "blur(30px)", // Apply blur effect
-            backgroundColor: "rgba(255, 255, 255, 0.1)", // Semi-transparent white
-            border: "1px solid rgba(255, 255, 255, 0.2)", // Optional border for glass effect
-            zIndex: 1,
-          }}
-          className="rounded-lg shadow-md p-6"
-        >
-          <h1 className="text-2xl md:text-3xl font-bold text-center  text-[#008490] mb-6 ">
+        <div className="rounded-lg shadow-md p-6 bg-white">
+          <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">
             Plan Your Dream Trip to Goa!
           </h1>
-          <form>
-            {packages.map((pkg) => (
-              <div
-                key={pkg.id}
-                className="flex flex-col md:flex-row items-center justify-between mb-6 p-4 bg-[#008490] rounded-lg shadow-sm"
-              >
-                <div className=" flex gap-2">
-                  <div className=" mb-4 md:mb-0">
-                    <h2 className="text-lg font-medium text-white">
-                      {pkg.name}
-                    </h2>
-                  </div>
-                  {pkg.hasQuantity && (
-                    <div className="flex flex-col md:flex-row gap-4 items-center mb-4 md:mb-0">
-                      <select
-                        className="border border-gray-300 rounded px-1 md:px-2 py-1 text-teal-700 font-medium w-[45px] md:w-auto"
-                        value={quantities[pkg.id]?.[pkg.quantityKey] || 1}
-                        onChange={(e) =>
-                          handleQuantityChange(pkg, e.target.value)
-                        }
-                      >
-                        {[...Array(10).keys()].map((num) => (
-                          <option key={num + 1} value={num + 1}>
-                            {num + 1}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                </div>
+          <div className="space-y-6">
+            {/* Dropdown Sections */}
+            {[
+              {
+                category: "Hotel Booking",
+                items: hotels,
+                quantityKey: "nights",
+              },
+              {
+                category: "Apartments",
+                items: apartments,
+                quantityKey: "nights",
+              },
+              {
+                category: "Guest House",
+                items: guesthouse,
+                quantityKey: "nights",
+              },
+              {
+                category: "Pick-up Thivim",
+                items: pickthivim,
+                quantityKey: "cars",
+              },
+              {
+                category: "Room Decor",
+                items: roomdecor,
+                quantityKey: "rooms",
+              },
+              {
+                category: "Sightseeing Tours",
+                items: sightseeing,
+                quantityKey: "people",
+              },
 
-                <div className="flex items-center gap-4">
-                  <button
-                    type="button"
-                    className="bg-teal-500 text-white font-semibold py-2 px-4 rounded-md shadow-md hover:bg-teal-600 transition"
-                    onClick={() => handleViewDetails(pkg?.link)}
-                  >
-                    Details
-                  </button>
-                  <span className="text-white">
-                    <span className=" font-bold">₹{pkg.price}</span>
-                    {pkg?.id === 1 ? " per Night" : " per person"}
+              {
+                category: "Activities",
+                items: activities,
+                quantityKey: "people",
+              },
+            ].map((section) => (
+              <div key={section.category}>
+                <div
+                  className="flex justify-between items-center bg-[#008490]  text-white p-4 rounded-lg cursor-pointer"
+                  onClick={() => toggleDropdown(section.category)}
+                >
+                  <span>{section.category}</span>
+                  <span>
+                    {openDropdowns[section.category] ? "\u25B2" : "\u25BC"}
                   </span>
-                  <input
-                    type="checkbox"
-                    className="h-6 w-6 accent-teal-600"
-                    checked={selectedPackages.includes(pkg.id)}
-                    onChange={() => handleSelection(pkg)}
-                  />
                 </div>
+                {openDropdowns[section.category] && (
+                  <div className="mt-2 space-y-2">
+                    {section.items.map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex justify-between items-center bg-gray-100 p-4 rounded-md"
+                      >
+                        <span>
+                          {item.name} - ₹{item.price} per {section.quantityKey}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <select
+                            className="border border-gray-300 rounded px-2 py-1"
+                            value={
+                              quantities[item.id]?.[section.quantityKey] || 1
+                            }
+                            onChange={(e) =>
+                              handleQuantityChange(
+                                item,
+                                section.quantityKey,
+                                e.target.value
+                              )
+                            }
+                          >
+                            {[...Array(10).keys()].map((num) => (
+                              <option key={num + 1} value={num + 1}>
+                                {num + 1}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            type="checkbox"
+                            className="h-6 w-6 accent-blue-500"
+                            checked={selectedPackages.includes(item.id)}
+                            onChange={() =>
+                              handleSelection(
+                                item,
+                                section.quantityKey,
+                                quantities[item.id]?.[section.quantityKey] || 1
+                              )
+                            }
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
-          </form>
+          </div>
           <div className="text-center mt-8">
             <button
-              className="bg-teal-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-teal-700 transition duration-300 w-full md:w-auto"
-              onClick={handleCheckout}
+              className="bg-teal-600  text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-600"
+              onClick={() =>
+                navigate("/checkout", {
+                  state: { selectedPackages, total, profit, quantities },
+                })
+              }
             >
               Confirm Booking
             </button>
